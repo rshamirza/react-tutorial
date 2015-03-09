@@ -4,6 +4,7 @@ var data = [
   {author: "Jordan Walke", text: "This is *another* comment"}
 ];
 
+
 // tutorial7.js
 var converter = new Showdown.converter();
 var Comment = React.createClass({
@@ -64,7 +65,7 @@ var CommentForm = React.createClass({
 });
 
 
-// tutorial19.js
+// tutorial20.js
 var CommentBox = React.createClass({
   loadCommentsFromServer: function() {
     $.ajax({
@@ -79,6 +80,9 @@ var CommentBox = React.createClass({
     });
   },
   handleCommentSubmit: function(comment) {
+    var comments = this.state.data;
+    var newComments = comments.concat([comment]);
+    this.setState({data: newComments});
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -109,6 +113,7 @@ var CommentBox = React.createClass({
     );
   }
 });
+
 
 React.render(
   <CommentBox url="comments.json" pollInterval={2000} />,
